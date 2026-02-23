@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OvaWeb | Профессиональная разработка сайтов</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #e0e0e0;
+    background-color: #1a1a1a;
+  }
+
+  :root {
+    --dark-bg: #1a1a1a;
+    --gray: #2d2d2d;
+    --light-gray: #404040;
+    --dark-green: #1e3f2d;
+    --accent-green: #2d5a3d;
+    --red: #c53030;
+    --white: #e0e0e0;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--dark-bg), var(--dark-green));
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--white);
+  }
+
+  .logo span {
+    color: var(--red);
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+  }
+
+  nav a:hover {
+    color: var(--red);
+    background-color: rgba(255,255,255,0.1);
+  }
+
+  .hero {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231e3f2d" width="1200" height="800"/><path fill="%232d5a3d" d="M0,400Q120,350,240,360Q360,370,480,400Q600,430,720,420Q840,410,960,380Q1080,350,1200,360L1200,800L0,800Z"/></svg>');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+  }
+
+  .hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    color: var(--white);
+    max-width: 600px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: var(--red);
+    color: var(--white);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: 2px solid var(--red);
+  }
+
+  .cta-button:hover {
+    background-color: transparent;
+    color: var(--red);
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 2rem 2rem; /* Добавил padding-bottom чтобы не прятать футер */
+  }
+
+  section {
+    margin-bottom: 6rem;
+    background-color: var(--gray);
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--white);
+    text-align: center;
+    position: relative;
+  }
+
+  h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: var(--red);
+    margin: 1rem auto;
+    border-radius: 2px;
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .profile-img {
+    width: 100%;
+    border-radius: 15px;
+    height: 300px;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-text h3 {
+    color: var(--red);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .about-text p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-card {
+    background-color: var(--light-gray);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--dark-green);
+  }
+
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .service-icon {
+    font-size: 3rem;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .service-card h3 {
+    color: var(--white);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .service-card p {
+    color: #b0b0b0;
+  }
+
+  .contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contact-icon {
+    color: var(--red);
+    font-size: 1.5rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  input, textarea {
+    padding: 1rem;
+    background-color: var(--light-gray);
+    border: 1px solid var(--dark-green);
+    border-radius: 5px;
+    color: var(--white);
+    font-size: 1rem;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--red);
+  }
+
+  .submit-btn {
+    background-color: var(--red);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.1rem;
+  }
+
+  .submit-btn:hover {
+    background-color: transparent;
+    border: 2px solid var(--red);
+    color: var(--red);
+  }
+
+  footer {
+    background-color: var(--dark-green);
+    color: var(--white);
+    text-align: center;
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .nav-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    nav ul {
+      gap: 1rem;
+    }
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+
+    .about-content,
+    .contact-content {
+      grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <div class="logo">Ova<span>Web</span></div>
+    <nav>
+      <ul>
+        <li><a href="#about">О себе</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Профессиональная разработка сайтов</h1>
+    <p>Создаю быстрые и современные сайты, которые работают на ваш результат</p>
+    <a href="https://t.me/kakusareta13" target="_blank" class="cta-button">Начать сотрудничество</a>
+  </div>
+</section>
+
+<main>
+  <section id="about">
+    <h2>О себе</h2>
+    <div class="about-content">
+      <div class="profile-img">
+        <!-- Здесь поменяй src на реальный путь к твоему изображению -->
+        <img src="img/test.jpg" alt="Фото">
+      </div>
+      <div class="about-text">
+        <h3>Привет, я Джаз</h3>
+        <p>фриланс-разработчик, специализируюсь на создании современных и функциональных сайтов под ключ. Работаю напрямую с клиентами без посредников, полностью погружаясь в каждый проект.</p>
+        <p>Моя задача — не просто сделать красивый сайт, а создать инструмент, который будет работать на ваш бизнес: привлекать клиентов, усиливать доверие и увеличивать продажи.</p>
+        <p>
+          В работе ценю:<br>
+ • Чистый и оптимизированный код<br>
+ • Быструю загрузку и адаптивность<br>
+ • Минималистичный и продуманный дизайн<br>
+ • Ответственность за результат
+        </p>
+        <p>Каждый проект для меня — это репутация и долгосрочное сотрудничество.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <h2>Услуги</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h3>Разработка сайтов под ключ</h3>
+        <p>Полный цикл создание сайта: от идеи и структуры до запуска и настройки.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <h3>Многостраничные сайты</h3>
+        <p>Корпоративные сайты, сайты-визитки, проекты для бизнеса.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎯</div>
+        <h3>Лендинги (Landing Page)</h3>
+        <p>Одностраничные сайты для продажи товаров, услуг или запуска рекламы.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Контакты</h2>
+    <div class="contact-content">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div><strong>Email</strong><br>jas.kakusareta@icloud.com</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div><strong>Телефон</strong><br>+992 906 19 33 22</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><strong>Адрес</strong><br>г. Кулоб, ул. И. Сомони</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕒</div>
+          <div><strong>Часы работы</strong><br>Вт-Вс: 12:00 - 00:00</div>
+        </div>
+      </div>
+
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name">Имя</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Сообщение</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Отправить сообщение</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <p>&copy; 2026 Ova corporation. Все права защищены.</p>
+    <p>Профессиональная разработка сайтов</p>
+  </div>
+</footer>
+
+<script>
+  // Плавная прокрутка
+  document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = anchor.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Обработка формы
+  document.querySelector('.contact-form').addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Спасибо за ваше сообщение! Я свяжусь с вами в ближайшее время.');
+    e.target.reset();
+  });
+
+  // Изменение шапки при скролле
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+      header.style.background = getComputedStyle(document.documentElement).getPropertyValue('--dark-bg');
+      header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.5)';
+    } else {
+      header.style.background = 'linear-gradient(135deg, var(--dark-bg), var(--dark-green))';
+      header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
+    }
+  });
+</script>
+
+</body>
+</html>
